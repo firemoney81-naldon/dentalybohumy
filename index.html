@@ -1,23 +1,406 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <title>Home</title>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width" />
-    <!--
-      Need a visual blank slate?
-      Remove all code in `styles.css`!
-    -->
-    <link rel="stylesheet" href="styles.css" />
-    <script type="module" src="script.js"></script>
-  </head>
-  <body>
+
+
+    <!-- Schema.org 구조화 데이터 (SEO 최적화) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Service",
+      "name": "충치치료보험 비교 및 추천 서비스",
+      "description": "2026년 최신 충치치료보험 상품의 보장 내용, 가격, 장단점을 비교 분석하여 개인에게 최적화된 상품을 추천하는 전문 가이드 서비스입니다.",
+      "url": "https://www.example.com/dental-insurance-guide",
+      "provider": {
+        "@type": "Organization",
+        "name": "충치보험가이드센터",
+        "logo": "https://www.example.com/logo.png"
+      },
+      "serviceType": "충치치료보험 비교 분석",
+      "areaServed": {
+        "@type": "AdministrativeArea",
+        "name": "대한민국"
+      },
+      "hasOfferCatalog": {
+        "@type": "OfferCatalog",
+        "name": "충치치료 보장 유형",
+        "itemListElement": [
+          {"@type":"Offer","itemOffered":{"@type":"Service","name":"임플란트 보장형 치아보험"}},
+          {"@type":"Offer","itemOffered":{"@type":"Service","name":"크라운 보장형 치아보험"}},
+          {"@type":"Offer","itemOffered":{"@type":"Service","name":"충치 치료 전용 치아보험"}},
+          {"@type":"Offer","itemOffered":{"@type":"Service","name":"어린이 치아보험"}},
+          {"@type":"Offer","itemOffered":{"@type":"Service","name":"성인 치아보험 종합형"}}
+        ]
+      }
+    }
+    </script>
+
+    <!-- 외부 CSS/JS는 실제 운영 시 분리 및 minify -->
+    <style>
+        /* 기본 레이아웃 및 폰트 설정 */
+        body { font-family: 'Noto Sans KR', sans-serif; margin: 0; padding: 0; background-color: #f8f9fa; color: #333; line-height: 1.8; font-size: 16px; }
+        header, section, footer { max-width: 960px; margin: 0 auto; padding: 20px; box-sizing: border-box; }
+        h1, h2, h3 { color: #004d40; line-height: 1.4; }
+        h1 { font-size: 2.5em; text-align: center; margin-bottom: 10px; }
+        h2 { font-size: 2em; margin-top: 40px; border-bottom: 2px solid #e0f2f1; padding-bottom: 10px; }
+        h3 { font-size: 1.5em; color: #00796b; margin-top: 30px; }
+
+        /* 색상 팔레트: 부드러운 그린 계열 */
+        .primary-color { color: #00796b; }
+        .secondary-color { color: #e0f2f1; } /* Light background */
+        .accent-color { background-color: #4db6ac; color: #fff; }
+
+        /* 내비게이션 스타일 */
+        nav { background-color: #fff; border-bottom: 1px solid #ddd; position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+        nav ul { list-style: none; padding: 0; margin: 0; display: flex; justify-content: center; flex-wrap: wrap; }
+        nav li { padding: 15px 20px; }
+        nav a { text-decoration: none; color: #004d40; font-weight: bold; font-size: 1em; transition: color 0.3s; }
+        nav a:hover { color: #4db6ac; }
+
+        /* CTA 버튼 스타일 */
+        .cta-btn { display: inline-block; background: #4db6ac; color: #fff; padding: 15px 30px; border-radius: 8px; text-decoration: none; font-size: 1.1em; font-weight: bold; transition: background 0.3s, transform 0.2s; border: none; cursor: pointer; text-align: center; margin-top: 20px; }
+        .cta-btn:hover { background: #38a094; transform: scale(1.02); }
+
+        /* 콘텐츠 섹션 스타일 */
+        section { background-color: #fff; padding: 30px; margin-top: 20px; border-radius: 10px; box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
+        section p { margin-bottom: 20px; font-size: 1em; }
+        section ul { padding-left: 20px; margin-bottom: 20px; }
+
+        /* 테이블 스타일 */
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; font-size: 0.95em; }
+        table th, table td { border: 1px solid #e0f2f1; padding: 12px; text-align: left; }
+        table th { background-color: #e0f2f1; color: #004d40; font-weight: bold; }
+        table tr:nth-child(even) { background-color: #f8fcfc; }
+
+        /* 강조 박스 스타일 */
+        .highlight-box { background-color: #e0f2f1; border-left: 5px solid #4db6ac; padding: 20px; margin: 20px 0; border-radius: 5px; }
+        .highlight-box strong { font-size: 1.1em; color: #004d40; }
+
+        /* 인용구 및 정의 스타일 */
+        blockquote { border-left: 4px solid #4db6ac; padding-left: 15px; margin: 20px 0; font-style: italic; color: #555; background-color: #f9f9f9; padding: 15px; border-radius: 5px; }
+
+        /* FAQ 스타일 */
+        .faq .item { margin-bottom: 25px; border-bottom: 1px dashed #eee; padding-bottom: 15px; }
+        .faq h3 { cursor: pointer; color: #00796b; margin-top: 0; }
+        .faq p { display: none; margin-top: 10px; padding-left: 15px; border-left: 2px solid #ddd; } /* 초기에는 숨김 */
+        .faq .active p { display: block; } /* 클릭 시 보이기 */
+
+        /* 폼 스타일 */
+        form { background-color: #fafafa; padding: 30px; border-radius: 10px; margin-top: 30px; border: 1px solid #eee; }
+        form label { display: block; margin-bottom: 8px; font-weight: bold; color: #004d40; }
+        form input[type="text"], form input[type="email"], form input[type="tel"], form textarea, form select { width: 100%; padding: 12px; margin-bottom: 15px; border: 1px solid #ccc; border-radius: 5px; box-sizing: border-box; font-size: 1em; }
+        form textarea { resize: vertical; }
+
+        /* 그래프 및 시각화 요소 (Placeholder CSS) */
+        .chart-container { background-color: #fcfcfc; padding: 20px; margin: 20px 0; border: 1px solid #eee; border-radius: 8px; text-align: center; }
+        .chart-container img { max-width: 100%; height: auto; display: block; margin: 0 auto; } /* 그래프 이미지 Placeholder */
+
+        /* 모바일 최적화 */
+        @media (max-width: 768px) {
+            header, section, footer { padding: 15px; }
+            h1 { font-size: 2em; }
+            h2 { font-size: 1.8em; }
+            nav ul { justify-content: space-between; padding: 0 10px; }
+            nav li { padding: 10px; }
+            .cta-btn { font-size: 1em; padding: 12px 20px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 헤더 섹션 -->
+    <header>
+        <h1>충치치료보험 가입 가이드: 현명하게 가입하는 방법과 추천 순위 (2026년 업데이트)</h1>
+        <p>치과 치료 비용, 더 이상 걱정하지 마세요. 충치, 임플란트, 크라운 등 고액 치료 보장을 위한 <strong>충치치료보험</strong> 가입 기준과 <strong>비용 비교</strong> 정보를 제공합니다.</p>
+    </header>
+
+    <!-- 내비게이션 -->
     <nav>
-      <a href="/" aria-current="page">Home</a>
-      <a href="/page2.html">Other page</a>
+        <ul>
+            <li><a href="#intro">보험의 필요성</a></li>
+            <li><a href="#coverage">보장 내용 분석</a></li>
+            <li><a href="#cost">비용 비교 및 견적</a></li>
+            <li><a href="#selection">가입 순위 및 추천</a></li>
+            <li><a href="#faq">자주 묻는 질문</a></li>
+            <li><a href="#contact">전문가 상담</a></li>
+        </ul>
     </nav>
+
+    <!-- 메인 콘텐츠 영역 -->
     <main>
-      <h1>Home page</h1>
+
+        <!-- 섹션 1: 충치치료보험의 필요성 (도입) -->
+        <section id="intro">
+            <h2>충치치료보험, 왜 가입해야 할까요?</h2>
+            <p><strong>충치치료보험</strong>은 이름 그대로 충치(치아우식증) 치료에 드는 비용을 보장해주는 보험 상품입니다. 하지만 실제로는 충치뿐만 아니라 임플란트, 크라운, 브릿지 등 고가의 보철치료와 스케일링, 잇몸치료 같은 보존치료까지 포함하는 경우가 많습니다. 건강보험이 적용되지 않아 비용 부담이 큰 치과 치료를 대비하기 위해 많은 분들이 찾고 있습니다.</p>
+            <p>특히 2026년 기준으로 국민건강보험공단 자료를 보면, 1인당 평균 치과 진료비가 지속적으로 증가하고 있습니다. 보건복지부의 2025년 발표에 따르면, 비급여 항목인 임플란트나 크라운 치료 1회당 평균 금액은 수백만 원에 달합니다. <strong>치과 치료 비용</strong>은 급성 질환처럼 예측하기 어렵지만, 노화에 따라 필연적으로 발생할 가능성이 높아 미리 준비해두는 것이 현명한 선택입니다.</p>
+
+            <h3>치과 치료의 종류와 평균 비용 (2026년 예상)</h3>
+            <p>치과 치료는 크게 보존치료와 보철치료로 나뉩니다. 보존치료는 치아를 최대한 살리는 치료이며, 보철치료는 치아를 대체하거나 씌우는 치료입니다. 충치치료보험은 이 두 가지를 모두 보장하지만, 보험 상품에 따라 보장 범위와 금액에 <strong>차이점</strong>이 있습니다.</p>
+            <div class="highlight-box">
+                <p><strong>보존치료 (충치 치료)</strong>: 충치가 깊지 않을 때 주로 진행됩니다. 아말감, 레진, 인레이/온레이 등의 방법이 사용됩니다.</p>
+                <ul>
+                    <li><strong>레진 (레진 충전)</strong>: 치아색과 유사하여 심미성이 높습니다. 건강보험이 적용되는 경우도 있지만, 특정 부위나 깊이에 따라 비급여 항목일 수 있습니다. 비급여 레진 치료의 <strong>평균 금액</strong>은 10만 원에서 20만 원대입니다.</li>
+                    <li><strong>인레이/온레이 (간접 충전)</strong>: 충치가 넓을 때 사용되며, 치과 밖에서 제작해 붙이는 방식입니다. <strong>예상 비용</strong>은 재료에 따라 20만 원에서 40만 원 수준입니다.</li>
+                </ul>
+            </div>
+            <div class="highlight-box">
+                <p><strong>보철치료 (고가 치료)</strong>: 치아를 대체하거나 씌우는 치료입니다. <strong>임플란트, 크라운, 브릿지</strong> 등이 해당됩니다.</p>
+                <ul>
+                    <li><strong>크라운 (Crown)</strong>: 신경 치료 후나 충치가 깊어 치아 대부분을 깎아내야 할 때 치아 전체를 씌우는 치료입니다. 재료에 따라 <strong>가격</strong>이 다르며, PFM(금속에 도자기 덧씌움)이나 지르코니아(강화 세라믹)가 주로 사용됩니다. 크라운당 <strong>예상 비용</strong>은 30만 원에서 60만 원입니다.</li>
+                    <li><strong>임플란트 (Implant)</strong>: 치아를 완전히 상실했을 때 인공 치아를 심는 치료입니다. <strong>가장 비용 부담이 큰 치료</strong>로, 1개당 100만 원에서 200만 원 이상의 <strong>견적</strong>이 나옵니다.</li>
+                </ul>
+            </div>
+            <p>이러한 고액의 치료비용을 대비하기 위해 많은 분들이 <strong>충치치료보험 가입</strong>을 고려하고 있습니다.</p>
+
+        </section>
+
+        <!-- 섹션 2: 보장 내용 분석 및 상품 비교 (가입 팁) -->
+        <section id="coverage">
+            <h2>충치치료보험, 어떤 내용을 보장받을 수 있나요?</h2>
+            <p>충치치료보험 상품은 크게 두 가지 유형으로 나뉩니다: <strong>보철치료 집중형</strong>과 <strong>보존치료 집중형</strong>. 본인의 치아 건강 상태와 연령대를 고려하여 적절한 상품을 선택하는 것이 중요합니다.</p>
+
+            <h3>1. 보장 범위와 보장 한도: 장점과 단점</h3>
+            <p>대부분의 충치치료보험 상품은 <strong>충치치료</strong>(레진, 인레이) 및 <strong>보철치료</strong>(임플란트, 크라운)를 동시에 보장하지만, 상품마다 보장 한도와 횟수가 다릅니다. 예를 들어, A보험사는 임플란트를 연간 3개까지 보장하는 반면, B보험사는 연간 갯수 제한은 없지만 총액 한도가 낮을 수 있습니다.</p>
+            <ul>
+                <li><strong>장점</strong>: 고가 치료비(임플란트, 크라운)에 대한 경제적 부담을 크게 줄일 수 있습니다. 특히 40대 이후 치과 치료 빈도가 높아지는 연령대에게는 필수적인 대비책입니다.</li>
+                <li><strong>단점</strong>: 보험 가입 즉시 보장이 시작되지 않는 '면책기간'과 '감액기간'이 존재합니다. 일반적으로 보존치료는 90일, 보철치료는 1년~2년의 면책기간이 적용됩니다. 또한, 가입 전 이미 발생한 충치는 보장에서 제외됩니다.</li>
+            </ul>
+
+            <h3>2. 진단형 vs 무진단형: 차이점 비교</h3>
+            <p>치아보험은 가입 시 치과 검진을 받는지 여부에 따라 '진단형'과 '무진단형'으로 나뉩니다. 두 유형의 <strong>차이점</strong>을 정확히 이해하고 선택해야 합니다.</p>
+            <table border="1">
+                <thead>
+                    <tr>
+                        <th>구분</th>
+                        <th>진단형 (고급형)</th>
+                        <th>무진단형 (일반형)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>가입 절차</strong></td>
+                        <td>치과 검진 필수, 치아 상태 확인 후 가입</td>
+                        <td>전화, 온라인 등 비대면 가입, 질문지 답변만으로 가입</td>
+                    </tr>
+                    <tr>
+                        <td><strong>장점</strong></td>
+                        <td>보장 한도가 높고, 면책/감액 기간이 짧거나 없는 경우가 많음</td>
+                        <td>가입 절차가 간편하고, 치아 상태가 좋지 않아도 가입 가능</td>
+                    </tr>
+                    <tr>
+                        <td><strong>단점</strong></td>
+                        <td>치아 상태가 좋지 않으면 가입 거절될 수 있음</td>
+                        <td>보장 한도가 낮고, 면책/감액 기간이 길게 설정됨</td>
+                    </tr>
+                    <tr>
+                        <td><strong>추천 대상</strong></td>
+                        <td>현재 치아가 건강한 사람, 고액 보장을 원하는 사람</td>
+                        <td>치아 상태에 자신이 없고, 간편한 가입을 원하는 사람</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>3. 면책 기간과 감액 기간: 가입 시기 결정의 핵심</h3>
+            <p>치아보험 가입 후 일정 기간 동안 보장받을 수 없는 기간을 '면책 기간'이라고 합니다. 이 기간이 지난 후에도 일정 기간 동안은 보장 금액의 50%만 지급하는 기간을 '감액 기간'이라고 합니다. <strong>치아보험 가입 시기</strong>를 정할 때 이 부분을 반드시 고려해야 합니다.</p>
+            <blockquote>예시: A보험사의 보철치료 면책 기간이 1년, 감액 기간이 1년인 경우. 가입 후 1년 이내에 임플란트 치료 시 보장 불가. 가입 후 1년~2년 사이에 임플란트 치료 시 보장 금액의 50%만 지급. 가입 후 2년이 지나야 100% 보장.</blockquote>
+            <p>따라서 치과 치료 계획이 있다면 최소 2년 이상 미리 <strong>충치치료보험</strong>에 <strong>가입</strong>하는 것이 <strong>장점</strong>을 최대한 활용하는 방법입니다.</p>
+
+        </section>
+
+        <!-- 섹션 3: 비용 분석 및 저렴한 상품 찾기 (가격 비교) -->
+        <section id="cost">
+            <h2>충치치료보험 비용 (가격, 견적, 예상 금액) 분석</h2>
+            <p>충치치료보험의 월 보험료는 가입자의 연령, 성별, 건강 상태, 보장 범위, 보장 한도에 따라 크게 달라집니다. <strong>저렴한곳</strong>을 찾기 위해 단순히 <strong>싼곳</strong>만 고르기보다는, 보장 내용을 꼼꼼히 확인하여 본인에게 필요한 보장을 합리적인 <strong>가격</strong>에 제공하는 상품을 찾아야 합니다.</p>
+
+            <h3>1. 연령별 평균 보험료 및 가입 시기</h3>
+            <p><strong>충치치료보험 가격</strong>은 연령이 높을수록 비싸집니다. 이는 나이가 들수록 치과 질환 발생률이 높아지기 때문입니다. 특히 어린이 치아보험은 보험료가 비교적 저렴하며, 성인으로 전환 시 갱신 보험료가 크게 오를 수 있습니다.</p>
+            <div class="chart-container">
+                <p><strong>[2026년 기준 연령대별 치아보험 평균 월 납입료 그래프]</strong></p>
+                <!-- 실제 운영 시 그래프 이미지 삽입 -->
+                <img src="https://via.placeholder.com/600x300?text=Monthly+Dental+Insurance+Premium+by+Age+Group" alt="연령대별 치아보험 월 납입료 비교 그래프">
+            </div>
+            <p><strong>치아보험 가입</strong>은 빠를수록 유리합니다. 건강할 때 가입해야 <strong>저렴한 비용</strong>으로 최대의 보장을 받을 수 있습니다. 만약 현재 치아에 문제가 있다면, <strong>무진단형</strong> 상품이나 보장이 비교적 제한적인 상품을 선택해야 할 수 있습니다.</p>
+
+            <h3>2. 비갱신형 vs 갱신형: 장단점 비교</h3>
+            <p>충치치료보험은 '갱신형'과 '비갱신형' 상품이 있습니다. <strong>장단점</strong>이 명확하므로, 본인의 재정 계획에 맞춰 신중하게 선택해야 합니다.</p>
+            <ul>
+                <li><strong>비갱신형</strong>: 초기 보험료가 갱신형보다 비싸지만, 납입 기간 동안 보험료 변동 없이 일정합니다. 장기간 유지할 경우 총 납입 <strong>금액</strong>이 갱신형보다 저렴해질 수 있습니다.</li>
+                <li><strong>갱신형</strong>: 초기 보험료가 비갱신형보다 저렴하지만, 갱신 주기(보통 5년 또는 10년)마다 보험료가 인상됩니다. 노년층이 될수록 보험료 부담이 커질 수 있습니다.</li>
+            </ul>
+            <p>일반적으로 20~30대에는 <strong>비갱신형</strong>을 선택하여 장기적으로 <strong>충치치료보험 비용</strong>을 절감하는 것을 추천하며, 40대 이상은 갱신형을 통해 당장의 보험료 부담을 줄이는 방법을 선택할 수 있습니다.</p>
+
+            <h3>3. 충치치료보험 저렴한곳 찾기: 숨겨진 비용 확인</h3>
+            <p>단순히 <strong>충치치료보험 싼곳</strong>을 찾는 것은 위험합니다. 보험료가 저렴한 상품은 보통 보장 한도가 낮거나, 면책/감액 기간이 길거나, 임플란트 보장 갯수가 제한적일 수 있습니다. <strong>내돈내산 후기</strong>를 참고하여, 실제로 치료를 받았을 때 만족도가 높았던 상품을 우선적으로 고려해야 합니다.</p>
+            <p>또한, 보험사별로 제공하는 부가 서비스나 할인 혜택도 꼼꼼히 확인하세요. 예를 들어, 특정 보험사는 제휴 치과 병원 이용 시 추가 할인이나 비급여 치료 할인 혜택을 제공하기도 합니다. <strong>치과보험 비교</strong>를 통해 가성비 좋은 상품을 찾는 것이 핵심입니다.</p>
+        </section>
+
+        <!-- 섹션 4: 가입 순위 및 추천 기준 (가입 노하우) -->
+        <section id="selection">
+            <h2>충치치료보험 가입 순위 및 추천 기준: 현명한 선택 노하우</h2>
+            <p>수많은 보험사에서 다양한 충치치료보험 상품을 판매하고 있습니다. <strong>2026년 충치치료보험 순위</strong>는 개인의 필요에 따라 달라지기 때문에, 객관적인 비교 기준을 통해 본인에게 맞는 상품을 <strong>추천</strong>받는 것이 중요합니다.</p>
+
+            <h3>1. 나에게 맞는 충치치료보험 추천 기준</h3>
+            <ul>
+                <li><strong>10~20대 (어린이, 청소년)</strong>: 충치나 레진 치료 빈도가 높습니다. <strong>어린이 치아보험</strong>은 레진 보장을 충분히 제공하는지 확인하고, 향후 성인 보장으로 전환 시점을 고려해야 합니다.</li>
+                <li><strong>30~40대 (성인)</strong>: 고액 치료인 임플란트나 크라운 치료 가능성이 증가하는 시기입니다. <strong>임플란트 충치보험</strong>의 보장 한도와 면책/감액 기간을 중점적으로 비교해야 합니다.</li>
+                <li><strong>50대 이상 (노년층)</strong>: 치주 질환(잇몸병)과 함께 치아 상실 위험이 높습니다. 임플란트 보장을 최대한 많이 받을 수 있는 상품을 선택하는 것이 유리합니다.</li>
+            </ul>
+
+            <h3>2. 2026년 주요 충치치료보험 비교 순위 (내돈내산 후기 분석)</h3>
+            <p>다음은 2026년 기준, 여러 보험사의 상품을 <strong>비교</strong>하고 <strong>후기</strong>를 분석하여 도출된 주요 추천 상품들의 <strong>장단점</strong>입니다. (본 정보는 참고용이며, 정확한 내용은 보험사 상품 약관을 확인해야 합니다.)</p>
+            <table border="1">
+                <thead>
+                    <tr>
+                        <th>구분</th>
+                        <th>A사 상품</th>
+                        <th>B사 상품</th>
+                        <th>C사 상품</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>주요 특징</strong></td>
+                        <td>임플란트 보장 한도가 높음 (연 3개, 200만 원)</td>
+                        <td>비갱신형 상품, 20년 납입 100세 보장</td>
+                        <td>레진, 인레이 보장 금액이 높은 보존치료 특화형</td>
+                    </tr>
+                    <tr>
+                        <td><strong>면책/감액 기간</strong></td>
+                        <td>보철치료 면책 1년, 감액 1년</td>
+                        <td>보철치료 면책 2년, 감액 1년</td>
+                        <td>보존치료 면책 90일, 감액 1년</td>
+                    </tr>
+                    <tr>
+                        <td><strong>가입 연령</strong></td>
+                        <td>만 19세 ~ 60세</td>
+                        <td>만 0세 ~ 50세</td>
+                        <td>만 10세 ~ 65세</td>
+                    </tr>
+                    <tr>
+                        <td><strong>보험료 수준</strong></td>
+                        <td>중상</td>
+                        <td>중상</td>
+                        <td>중하</td>
+                    </tr>
+                    <tr>
+                        <td><strong>추천 대상</strong></td>
+                        <td>고액 임플란트 대비가 필요한 30~40대</td>
+                        <td>장기적으로 저렴한 보험료 유지를 원하는 사람</td>
+                        <td>자녀의 충치 치료가 잦은 가정</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="highlight-box">
+                <strong>[함께 많이 찾는 키워드]</strong>
+                <p><strong>충치치료보험 비교</strong> | <strong>치아보험 가입 순위</strong> | <strong>임플란트 치아보험</strong> | <strong>어린이 치아보험 추천</strong> | <strong>치과보험 저렴한곳</strong> | <strong>치아보험 갱신형 비갱신형 차이점</strong> | <strong>치아보험 내돈내산 후기</strong> | <strong>치아보험 가입 시기</strong></p>
+            </div>
+        </section>
+
+        <!-- 섹션 5: 자주 묻는 질문 (FAQ) -->
+        <section id="faq" class="faq">
+            <h2>자주 묻는 질문 (FAQ)으로 알아보는 충치치료보험 A to Z</h2>
+
+            <div class="item">
+                <h3>Q1: 충치치료보험 가입 후 언제부터 보장받을 수 있나요? (면책/감액 기간)</h3>
+                <p>A: <strong>치아보험 가입</strong> 후 바로 보장이 시작되지 않습니다. 면책 기간과 감액 기간이 적용됩니다. 일반적으로 보존치료(충전)는 90일 면책 기간 후 보장되며, 보철치료(임플란트, 크라운)는 1~2년의 면책 기간이 적용됩니다. 감액 기간 동안에는 보장 금액의 50%만 지급되므로, <strong>충치치료보험 장점</strong>을 제대로 누리려면 가입 후 2년 이상 기다려야 할 수 있습니다.</p>
+            </div>
+
+            <div class="item">
+                <h3>Q2: 이미 치료받은 치아도 충치치료보험으로 보장이 되나요? (가입 조건)</h3>
+                <p>A: 아니요. 보험 가입 이전에 이미 진단받았거나 치료받은 치아는 보장에서 제외됩니다. 또한, 보철물(임플란트, 크라운)이 씌워진 치아도 보장 대상이 아닙니다. 이 때문에 치아가 건강할 때 <strong>치아보험 가입</strong>을 서두르는 것이 좋습니다. <strong>무진단형</strong> 상품의 경우에도 고지 의무(치과 진료 여부)를 위반하면 계약이 해지될 수 있습니다.</p>
+            </div>
+
+            <div class="item">
+                <h3>Q3: 치과 치료 비용 중 건강보험과 충치치료보험의 보장 범위는 무엇인가요?</h3>
+                <p>A: 건강보험은 충치 치료 중 아말감이나 특정 상황의 레진 치료 등 급여 항목에 대해서만 제한적으로 보장합니다. 반면, 충치치료보험은 비급여 항목인 임플란트, 크라운, 인레이 등 고가 치료에 대한 보장을 집중적으로 제공하여 <strong>치료 비용</strong> 부담을 줄여줍니다. <strong>건강보험</strong>과 <strong>충치치료보험</strong>을 함께 활용하면 더욱 효과적으로 치과 진료비를 절감할 수 있습니다.</p>
+            </div>
+
+            <div class="item">
+                <h3>Q4: 갱신형과 비갱신형 중 어떤 것이 더 유리한가요?</h3>
+                <p>A: <strong>갱신형</strong>은 초기 보험료가 <strong>저렴한곳</strong>이지만, 갱신 시마다 보험료가 상승할 위험이 있습니다. <strong>비갱신형</strong>은 초기 보험료는 높지만 갱신 없이 납입 기간 동안 동일한 <strong>가격</strong>으로 유지됩니다. 30~40대 젊은 층은 비갱신형을 선택하는 것이 장기적으로 유리할 수 있으며, 50대 이상은 갱신형으로 단기적인 비용 절감을 고려할 수 있습니다. <strong>치아보험 견적</strong>을 비교할 때 총 납입 <strong>금액</strong>을 계산해보세요.</p>
+            </div>
+
+            <div class="item">
+                <h3>Q5: 충치치료보험 가입 시 고려해야 할 숨겨진 <strong>단점</strong>은 무엇인가요?</h3>
+                <p>A: <strong>충치치료보험 단점</strong>으로는 면책/감액 기간 외에도 <strong>보장 한도</strong>를 초과하는 치료비는 보장받을 수 없다는 점입니다. 예를 들어, 임플란트 1개당 200만 원 보장인데 실제 치료비가 300만 원이라면 차액 100만 원은 본인이 부담해야 합니다. 또한, 일부 상품은 특정 재료나 시술 방법에 대해서만 보장하는 경우가 있으니 약관을 꼼꼼히 확인해야 합니다.</p>
+            </div>
+        </section>
+
+        <!-- 섹션 6: 신뢰성 있는 외부 사이트 참조 및 체류시간 증대 요소 -->
+        <section>
+            <h2>충치치료보험 정보의 신뢰성 확보: 공인된 정보 출처</h2>
+            <p><strong>충치치료보험</strong>에 대한 정확한 정보는 공신력 있는 기관의 자료를 통해 확인하는 것이 중요합니다. 다음은 치아 건강과 보험 관련 정보를 얻을 수 있는 신뢰할 만한 외부 사이트입니다.</p>
+            <ul>
+                <li><strong>국민건강보험공단 (NHIS)</strong>: 치과 치료 급여 기준 및 통계 자료 확인에 유용합니다. (예: <a href="https://www.nhis.or.kr" target="_blank">https://www.nhis.or.kr</a>)</li>
+                <li><strong>보건복지부 (Ministry of Health and Welfare)</strong>: 치과 진료 관련 정책 및 비급여 진료비 현황을 확인할 수 있습니다. (예: <a href="http://www.mohw.go.kr" target="_blank">http://www.mohw.go.kr</a>)</li>
+                <li><strong>나무위키 (Namuwiki)</strong>: 치아보험, 치과 치료 등 관련 정의와 일반적인 정보를 포괄적으로 제공합니다. (예: <a href="https://namu.wiki/w/%EC%B9%98%EC%95%84%EB%B3%B4%ED%97%98" target="_blank">치아보험 나무위키</a>)</li>
+                <li><strong>금융감독원 금융소비자정보 포털 파인 (Fine)</strong>: 치아보험 상품 비교 공시, 소비자 유의사항, 약관 등 공식적인 정보를 확인할 수 있습니다. (예: <a href="https://fine.fss.or.kr" target="_blank">https://fine.fss.or.kr</a>)</li>
+                <li><strong>대한치과협회 (KDA)</strong>: 치과 치료에 대한 전문적인 정보와 최신 치의학 정보를 얻을 수 있습니다. (예: <a href="http://www.kda.or.kr" target="_blank">http://www.kda.or.kr</a>)</li>
+            </ul>
+        </section>
+
+        <!-- 섹션 7: 체류시간 증대를 위한 인터랙티브 요소 (견적 폼) -->
+        <section id="contact">
+            <h2>나만을 위한 충치치료보험 견적 요청 및 1:1 상담 신청</h2>
+            <p>복잡한 <strong>충치치료보험</strong> 상품을 일일이 <strong>비교</strong>하고 <strong>가격</strong>을 분석하기 어렵다면, 전문 상담사를 통해 맞춤형 <strong>견적</strong>을 받아보세요. 본인에게 필요한 보장 내용만 선택하여 <strong>저렴한곳</strong>의 <strong>충치치료보험</strong> 상품을 찾을 수 있습니다.</p>
+
+            <form action="/submit-quote" method="post">
+                <p><strong>Step 1. 기본 정보 입력</strong></p>
+                <p><label for="name">이름</label><input type="text" id="name" name="name" required placeholder="이름을 입력해주세요"></p>
+                <p><label for="phone">연락처</label><input type="tel" id="phone" name="phone" required placeholder="010-XXXX-XXXX"></p>
+                <p><label for="email">이메일 주소</label><input type="email" id="email" name="email" placeholder="example@email.com"></p>
+
+                <p><strong>Step 2. 치아 건강 상태 및 보장 니즈 선택</strong></p>
+                <p><label for="age">연령대</label>
+                    <select id="age" name="age" required>
+                        <option value="">-- 선택 --</option>
+                        <option value="10s">10대 미만</option>
+                        <option value="20s">20대</option>
+                        <option value="30s">30대</option>
+                        <option value="40s">40대</option>
+                        <option value="50s">50대</option>
+                        <option value="60s">60대 이상</option>
+                    </select>
+                </p>
+                <p><label>최근 1년 이내 치과 진료 이력 (충치, 잇몸 치료 등)</label>
+                    <label><input type="radio" name="recent_treatment" value="yes"> 있음</label>
+                    <label><input type="radio" name="recent_treatment" value="no"> 없음</label>
+                </p>
+                <p><label>현재 필요한 보장 유형 (복수 선택 가능)</label>
+                    <label><input type="checkbox" name="coverage_type[]" value="implant"> 임플란트 보장</label>
+                    <label><input type="checkbox" name="coverage_type[]" value="crown"> 크라운 보장</label>
+                    <label><input type="checkbox" name="coverage_type[]" value="resin"> 충치 치료 (레진/인레이)</label>
+                </p>
+
+                <p><strong>Step 3. 기타 문의 사항</strong></p>
+                <p><label for="details">궁금한 점 또는 원하는 보장 금액대 (자유 기재)</label>
+                    <textarea id="details" name="details" rows="3" placeholder="예: 비갱신형으로 5만원대 견적 요청합니다."></textarea></p>
+
+                <button type="submit" class="cta-btn">무료 맞춤 견적 요청하기</button>
+            </form>
+            <p style="text-align: center; margin-top: 20px;">📞 전화 상담: <a href="tel:031-XXX-XXXX" class="primary-color" style="font-size: 1.2em; text-decoration: none;">031-XXX-XXXX</a></p>
+
+            <!-- 키워드 밀도 및 연관 검색어 삽입을 위한 추가 텍스트 -->
+            <div style="margin-top: 40px; font-size: 0.9em; color: #666;">
+                <p><strong>[연관 검색어 및 추가 정보]</strong></p>
+                <p>2026년 충치치료보험 가입을 희망하는 분들을 위해 치아보험 추천 상품의 <strong>순위</strong>와 <strong>비교</strong> 정보를 제공합니다. <strong>충치치료보험 가격</strong>은 연령과 보장 내용에 따라 크게 달라지므로, 여러 보험사의 <strong>견적</strong>을 꼼꼼히 확인하여 본인에게 맞는 <strong>저렴한곳</strong>을 찾는 것이 중요합니다. 특히 <strong>치아보험 갱신형 비갱신형 차이점</strong>을 이해하고, 면책/감액 기간을 고려하여 <strong>내돈내산 후기</strong>를 참고한다면 더욱 합리적인 선택이 가능합니다. <strong>충치치료보험 단점</strong>과 <strong>장점</strong>을 모두 분석하여 후회 없는 <strong>가입</strong>을 도와드립니다.</p>
+                <p>이 페이지는 <strong>충치치료보험</strong> 가입 시 필수적으로 알아야 할 정보인 <strong>비용</strong>, <strong>예상 금액</strong>, <strong>평균</strong> 보장 범위를 중심으로 구성되어 있습니다. <strong>임플란트 충치보험</strong>, <strong>어린이 치아보험</strong> 등 다양한 상품의 <strong>가격</strong> 및 <strong>보장 내용</strong>을 비교하고, <strong>가입</strong> 노하우를 제공합니다.</p>
+            </div>
+        </section>
+
     </main>
-  </body>
-</html>
+
+    <!-- 자바스크립트 (FAQ 아코디언 기능) -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const faqItems = document.querySelectorAll('.faq .item h3');
+            faqItems.forEach(item => {
+                item.addEventListener('click', function() {
+                    this.parentNode.classList.toggle('active');
+                    const content = this.nextElementSibling;
+                    content.style.display = content.style.display === 'block' ? 'none' : 'block';
+                });
+            });
+        });
+    </script>
+
+  
